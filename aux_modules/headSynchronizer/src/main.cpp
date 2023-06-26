@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
     {
         yError() << "Error module did not start!";
     }
-
     yDebug() << "Main returning...";
     return EXIT_SUCCESS;
 }

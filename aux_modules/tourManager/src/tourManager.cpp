@@ -105,7 +105,7 @@ bool TourManager::configure(yarp::os::ResourceFinder &rf)
         }
     }
     else
-    {
+    { 
         yCWarning(TOUR_MANAGER) << "Movement part names are empty. No movements will be executed!";
     }
 
@@ -383,6 +383,8 @@ bool TourManager::InterpretCommand(const std::string &command)
     return false;
 }
 
+
+// TOMOVE TOUR SCHEDULER
 bool TourManager::NextPoI()
 {
     try
@@ -398,6 +400,8 @@ bool TourManager::NextPoI()
     }
 }
 
+
+// TOMOVE TOUR SCHEDULER
 bool TourManager::UpdatePoI()
 {
     bool b = m_tourStorage->GetTour().getPoI(m_tourStorage->GetTour().getPoIsList()[m_PoIndex], m_currentPoI); // Loads the next poi in the active pois specified in the tour object.
@@ -410,6 +414,8 @@ bool TourManager::UpdatePoI()
     return true;
 }
 
+
+// TOMOVE TALKER
 void TourManager::Speak(const std::string &text, bool isValid)
 {
     if (m_headSynchronizer.say(text))
@@ -426,6 +432,8 @@ void TourManager::Speak(const std::string &text, bool isValid)
     }
 }
 
+
+// TOMOVE BT OR INTERACTOR
 float TourManager::DoDance(const std::string &danceName)
 {
     Dance currentDance;
@@ -456,6 +464,8 @@ float TourManager::DoDance(const std::string &danceName)
     return currentDance.GetDuration();
 }
 
+
+// TOMOVE BT OR INTERACTOR
 void TourManager::Signal(const std::string &param)
 {
     if (param == "startHearing")
@@ -531,6 +541,8 @@ void TourManager::Signal(const std::string &param)
     }
 }
 
+
+// TODO WHAT IS THIS?
 bool TourManager::recovered()
 {
     m_headSynchronizer.reset();
@@ -553,6 +565,8 @@ bool TourManager::recovered()
     return true;
 }
 
+
+// TOMOVE BT ERROR MANAGEMENT 
 bool TourManager::sendError(const std::string &error)
 {
     yCError(TOUR_MANAGER) << "Received error:" << error;
@@ -599,6 +613,8 @@ bool TourManager::sendError(const std::string &error)
     return true;
 }
 
+
+// TOMOVE BT
 bool TourManager::isAtPoI()
 {
     // Check if hasReachedPoI so that we can override manually without depending on the navigation status
@@ -609,6 +625,8 @@ bool TourManager::isAtPoI()
     return false;
 }
 
+
+// TOMOVE BT NAVIGATION
 bool TourManager::sendToPoI()
 {
     m_hasReachedPoI = false;
@@ -716,6 +734,7 @@ bool TourManager::sendToPoI()
     return true;
 }
 
+// TODO HOW THIS WORKS?
 void TourManager::BlockSpeak()
 {
     while (!m_headSynchronizer.isSpeaking())
@@ -728,11 +747,15 @@ void TourManager::BlockSpeak()
     }
 }
 
+
+// TOMOVE TOUR SCHEDULER
 std::string TourManager::getCurrentPoIName()
 {
     return m_currentPoI.getName();
 }
 
+
+// TOMOVE INTERACTOR OR TALKER (BETTER TALKER)
 void TourManager::SendToDialogue(const std::string &command)
 {
     yarp::os::Bottle cmd;
@@ -741,6 +764,8 @@ void TourManager::SendToDialogue(const std::string &command)
     yCDebug(TOUR_MANAGER) << "I am sending to dialogueFlow:" << command;
 }
 
+
+// TOMOVE MOVEMENT MANAGER
 bool TourManager::SendMovement(float time, float offset, std::vector<float> joints, yarp::os::Port &port)
 {
     yarp::os::Bottle res;
@@ -759,6 +784,8 @@ bool TourManager::SendMovement(float time, float offset, std::vector<float> join
     return port.write(cmd, res);
 }
 
+
+// TOMOVE TALKER
 DialogflowCallback::DialogflowCallback(TourManager *tourManager) : m_tourManager(tourManager)
 {
 }

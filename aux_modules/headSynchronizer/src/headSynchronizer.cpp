@@ -110,10 +110,10 @@ bool HeadSynchronizer::interruptModule()
 
 bool HeadSynchronizer::updateModule()
 {
-    if (!isAudioPlaying())
+    if (!isAudioPlaying()) // is playing
     {
         std::unique_lock<std::mutex> lck(m_mutex);
-        if (!m_textBuffer.empty())
+        if (!m_textBuffer.empty()) // need to speak
         {
             std::string str = m_textBuffer.at(0);
             lck.unlock();
@@ -220,7 +220,7 @@ bool HeadSynchronizer::continueSpeaking()
     bool result = m_pPlayerOutput.write(bot, res);
     if (result)
     {
-        yCDebug(HEAD_SYNCHRONIZER) << "Successfully paused the speech.";
+        yCDebug(HEAD_SYNCHRONIZER) << "Successfully continued the speech.";
         return true;
     }
     else
@@ -445,6 +445,8 @@ StatusCallback::StatusCallback(HeadSynchronizer *headSynchronizer) : m_headSynch
 {
 }
 
+
+// which google is this?
 void StatusCallback::onRead(yarp::os::Bottle &b)
 {
     std::string status = b.get(0).asString();
