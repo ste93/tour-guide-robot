@@ -29,18 +29,6 @@
   </module>
 
   <connection>
-    <from>/googleSpeech/result:o</from>
-    <to>/googleLogger/userInput:i</to>
-    <protocol>fast_tcp</protocol>
-  </connection>
-
-  <connection>
-    <from>/googleDialog/result:o</from>
-    <to>/googleLogger/googleDialog:i</to>
-    <protocol>fast_tcp</protocol>
-  </connection>
-
-  <connection>
     <from>/googleLogger/TourManager/thrift:c</from>
     <to>/TourManager/thrift:s</to>
     <protocol>fast_tcp</protocol>
